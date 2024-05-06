@@ -1,0 +1,13 @@
+service > main.ts we launch our app
+we have nestfactory and we provide our root module and other cors thing4
+
+Module can have import contrllers providers exports
+Providers - Provide some sort of functionality to your app
+provide services, appn logic
+
+Import -bring featurs of module we created or external library
+Controllers - handles incoming request and outgoing response to the client
+
+polls.module.ts
+polls.controller.ts
+polls.dtos.ts
