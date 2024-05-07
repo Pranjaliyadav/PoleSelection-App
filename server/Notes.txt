@@ -18,3 +18,20 @@ controller will have @Controller
 Service will have @Injectible
 
 nanoId
+
+exports field in controller - servcie/ clients that we want to provide to other modules
+
+#Redis
+
+open source, in-meory data structure store use as a database cache and message broker
+allows to store and manipulate various DS lie strings hashes lists sets sorted sets and more
+
+commonly used for caching frequently accessed data to imporve application performance managing real-time data like leaderboards or session managemnt, implementing messaging systems
+
+install redis 
+configure resiModule
+inject redis service
+use redis operations like set get del etc
+can use nesjs caching mechanism such as 'CacheInterceptor' to cace HTTP responses using Redis
+
+
