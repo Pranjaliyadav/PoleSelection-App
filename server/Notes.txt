@@ -11,3 +11,10 @@ Controllers - handles incoming request and outgoing response to the client
 polls.module.ts
 polls.controller.ts
 polls.dtos.ts
+polls.types.ts
+polls.service.ts
+
+controller will have @Controller
+Service will have @Injectible
+
+nanoId
