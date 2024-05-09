@@ -34,4 +34,4 @@ inject redis service
 use redis operations like set get del etc
 can use nesjs caching mechanism such as 'CacheInterceptor' to cace HTTP responses using Redis
 
-
+if typescript depenceny is involdved. we always need tsconfig.ts file
