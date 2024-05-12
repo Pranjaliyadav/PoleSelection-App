@@ -3,6 +3,7 @@
 import { Logger } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { RedisModule } from './redis.module';
+import { JwtModule } from '@nestjs/jwt';
 
 //registerAsync we alreay defined in redis module
 export const redisModule = RedisModule.registerAsync({
@@ -34,3 +35,14 @@ export const redisModule = RedisModule.registerAsync({
   },
   inject: [ConfigService], //array of token respresnting dependecies that should be injected into the useFactory fn. 
 });
+
+export const jwtModule = JwtModule.registerAsync({
+  imports : [ConfigModule],
+  useFactory:async (configService : ConfigService) =>({
+    secret : configService.get<string>('JWT_SECRET'),
+    signOptions: {
+      expiresIn : parseInt(configService.get<string>('POLL_DURATION')) //token expires in, 
+    }
+  }),
+  inject : [ConfigService]
+})

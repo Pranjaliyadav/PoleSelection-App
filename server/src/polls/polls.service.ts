@@ -2,11 +2,14 @@ import { Injectable, Logger } from "@nestjs/common";
 import { CreatePollsDataType, JoinPollsDataType, RejoinPollDataType } from "./polls.types";
 import { createUniquePollID, createUniqueUserID } from "src/uniqueIds";
 import { PollsRepository } from "./polls.repository";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class PollsService {
     private readonly logger = new Logger(PollsService.name)
-    constructor(private readonly pollsRepository: PollsRepository) { }
+    constructor(private readonly pollsRepository: PollsRepository,
+        private readonly jwtService : JwtService
+    ) { }
     async createPoll(createPollsData: CreatePollsDataType) {
         const pollID = createUniquePollID()
         const userID = createUniqueUserID()
@@ -15,8 +18,21 @@ export class PollsService {
             userID,
             pollID
         })
+
+        this.logger.debug(`Creating token string for pollID: ${createPoll.id} and userID: ${userID}`)
+
+        const signedString = this.jwtService.sign({
+            pollID : createPoll.id,
+            userName : createPollsData.userName,
+        },{
+            subject : userID
+        })
+
+
+
         return {
-            poll: createPoll
+            poll: createPoll,
+            accessToken : signedString
         }
     }
 
@@ -29,9 +45,22 @@ export class PollsService {
         )
         const joinedPoll = await this.pollsRepository.getPoll(joinPollsData.pollID)
 
+        this.logger.debug(`Creating token string for pollID: ${joinedPoll.id} and userID: ${userID}`)
+
+        const signedString = this.jwtService.sign({
+            pollID : joinedPoll.id,
+            userName : joinPollsData.userName,
+        },{
+            subject : userID
+        })
+
+
+
         return {
-            poll: joinedPoll
+            poll: joinedPoll,
+            accessToken : signedString
         }
+      
     }
 
     async rejoinPoll(rejoinPollsData: RejoinPollDataType) {

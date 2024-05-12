@@ -35,3 +35,8 @@ use redis operations like set get del etc
 can use nesjs caching mechanism such as 'CacheInterceptor' to cace HTTP responses using Redis
 
 if typescript depenceny is involdved. we always need tsconfig.ts file
+
+
+Server has confi module - access to configurtion such as .env via ConfigService
+JWT Module - JWT utility functions ( sign, verify tokens)
+Redis Module - Provides access to IO redis client
